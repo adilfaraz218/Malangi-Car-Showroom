@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malangi Car Showroom - Best Cars, Best Prices</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --text-color: #333;
+            --card-bg: #fff;
+            --header-bg: linear-gradient(135deg, #1e3c72, #2a5298);
+        }
+
+        .dark-mode {
+            --bg-color: #121212;
+            --text-color: #f4f6f9;
+            --card-bg: #1e1e1e;
+            --header-bg: linear-gradient(135deg, #0d1b2a, #1b263b);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Top Car Ticker Bar */
+        .car-ticker {
+            background: #111;
+            color: #fff;
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            width: 100%;
+            border-bottom: 2px solid #ffcc00;
+        }
+
+        .ticker-track {
+            display: inline-flex;
+            gap: 30px;
+            animation: scrollTicker 70s linear infinite;
+        }
+
+        .ticker-track:hover {
+            animation-play-state: paused;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 15px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .ticker-item img {
+            width: 45px;
+            height: 35px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .ticker-info {
+            display: flex;
+            flex-direction: column;
+            font-size: 13px;
+        }
+
+        .ticker-info span.t-name {
+            font-weight: bold;
+            color: #ffcc00;
+        }
+
+        .ticker-info span.t-price {
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        @keyframes scrollTicker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Header & Navigation (Centered Owner Profile) */
+        header {
+            background: var(--header-bg);
+            color: #fff;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            gap: 15px;
+        }
+
+        .header-profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .owner-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffcc00;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 5px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+        }
+
+        .theme-toggle-btn {
+            background: #ffcc00;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #1e3c72;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background-color: #ffcc00;
+            color: #1e3c72;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #e6b800;
+        }
+
+        .btn-secondary {
+            background-color: #2a5298;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #1e3c72;
+        }
+
+        /* Stats Counter Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: -30px auto 40px;
+            padding: 0 20px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 25px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border-bottom: 4px solid #ffcc00;
+        }
+
+        .stat-card h3 {
+            font-size: 32px;
+            color: #2a5298;
+            margin-bottom: 5px;
+        }
+
+        /* Cars Section */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #2a5298;
+        }
+
+        /* Advanced Search & Filter Controls */
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .filter-controls input, .filter-controls select {
+            padding: 12px 18px;
+            font-size: 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background: var(--card-bg);
+            color: var(--text-color);
+            min-width: 200px;
+            flex: 1;
+            max-width: 280px;
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .car-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .car-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(30, 60, 114, 0.2);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255,255,255,0.8);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            color: #e74c3c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: 0.3s;
+        }
+
+        .wishlist-btn:hover {
+            background: #fff;
+            transform: scale(1.1);
+        }
+
+        .car-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .car-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .car-info {
+            padding: 20px;
+        }
+
+        .car-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #2a5298;
+        }
+
+        .car-info p {
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .price-box {
+            margin-bottom: 15px;
+        }
+
+        .old-price {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+
+        .price {
+            font-size: 19px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-buttons .btn {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        /* Extra Sections: EMI Calculator, Compare, Test Drive, Wishlist */
+        .extra-sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-box {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .feature-box h3 {
+            color: #2a5298;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: 15px;
+        }
+
+        .result-box {
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(42, 82, 152, 0.1);
+            border-radius: 5px;
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+        /* Wishlist Container */
+        .wishlist-container {
+            margin-top: 40px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .wishlist-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .wishlist-chip {
+            background: #2a5298;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wishlist-chip button {
+            background: none;
+            border: none;
+            color: #ffcc00;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Modal Popup */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 10px;
+            max-width: 650px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            background: #1e3c72;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-body img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            background: rgba(0,0,0,0.03);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .spec-item {
+            font-size: 14px;
+        }
+
+        .spec-item strong {
+            color: #2a5298;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1ebd56;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: var(--card-bg);
+            padding: 60px 20px;
+            margin-top: 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: rgba(0,0,0,0.02);
+            padding: 20px;
+            border-left: 4px solid #ffcc00;
+            border-radius: 5px;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-card h4 {
+            color: #2a5298;
+            font-size: 16px;
+        }
+
+        /* FAQs Section */
+        .faq-section {
+            max-width: 900px;
+            margin: 60px auto 0;
+            padding: 0 20px;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .faq-item h4 {
+            color: #2a5298;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        /* Booking Section */
+        .booking-section {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin-top: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Sliding Car Ticker -->
+    <div class="car-ticker">
+        <div class="ticker-track" id="tickerTrack">
+            <!-- Ticker items will be loaded dynamically via JavaScript -->
+        </div>
+    </div>
+
+    <!-- Header with Centered Owner Profile Photo -->
+    <header>
+        <div class="header-profile-container">
+            <img src="WhatsApp Image 2026-10-29 at 5.00.53 PM.jpeg" alt="Owner" class="owner-avatar">
+            <h1>Malangi Car Showroom 🚗</h1>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#cars">Cars</a>
+            <a href="#tools">Tools</a>
+            <a href="#testimonials">Reviews</a>
+            <a href="#booking">Book Now</a>
+            <button class="theme-toggle-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> Theme</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Book Your Dream Car Online</h2>
+        <p>Contact us today for the best new and used vehicles</p>
+        <a href="#cars" class="btn">View Cars</a>
+    </section>
+
+    <!-- Stats Counter Section -->
+    <div class="stats-section">
+        <div class="stat-card">
+            <h3 class="counter" data-target="19">0</h3>
+            <p>Available Models</p>
+        </div>
+        <div class="stat-card">
+            <h3 class="counter" data-target="1250">0</h3>
+            <p>Happy Customers</p>
+        </div>
+        <div class="stat-card">
+            <h3 class="counter" data-target="10">0</h3>
+            <p>Years Experience</p>
+        </div>
+        <div class="stat-card">
+            <h3 class="counter" data-target="100">0</h3>
+            <p>Verified Papers %</p>
+        </div>
+    </div>
+
+    <!-- Cars Section -->
+    <div class="container" id="cars">
+        <h2 class="section-title">Available Cars (19 Models)</h2>
+        
+        <!-- Advanced Search and Filters -->
+        <div class="filter-controls">
+            <input type="text" id="carSearch" placeholder="Search by name or brand..." onkeyup="filterCars()">
+            
+            <select id="brandFilter" onchange="filterCars()">
+                <option value="">All Brands</option>
+                <option value="Toyota">Toyota</option>
+                <option value="KIA">KIA</option>
+                <option value="Suzuki">Suzuki</option>
+                <option value="Hyundai">Hyundai</option>
+                <option value="MG">MG</option>
+                <option value="Honda">Honda</option>
+                <option value="Changan">Changan</option>
+                <option value="Audi">Audi</option>
+                <option value="Chery">Chery</option>
+                <option value="Haval">Haval</option>
+                <option value="Prince">Prince</option>
+                <option value="DFSK">DFSK</option>
+            </select>
+
+            <select id="priceFilter" onchange="filterCars()">
+                <option value="">All Prices</option>
+                <option value="0-3000000">Under 3 Million</option>
+                <option value="3000000-6000000">3M - 6M</option>
+                <option value="6000000-10000000">6M - 10M</option>
+                <option value="10000000-30000000">Above 10 Million</option>
+            </select>
+
+            <select id="yearFilter" onchange="filterCars()">
+                <option value="">All Years</option>
+                <option value="1996">1996</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+            </select>
+        </div>
+
+        <div class="cars-grid" id="carsGrid">
+            
+            <!-- Car 1 -->
+            <div class="car-card" data-name="2023-suzuki-swift-concept" data-brand="Toyota" data-price="2250000" data-year="2026" data-mileage="12,000 km" data-transmission="Automatic" data-fuel="Petrol" data-engine="1.2L" data-image="c:\Users\HP\OneDrive\Desktop\showroom\2023-suzuki-swift-concept.webp" data-desc="A sleek modern concept style vehicle with supreme fuel economy and comfort.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, '2023-suzuki-swift-concept')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge">10% OFF</div>
+                <img src="c:\Users\HP\OneDrive\Desktop\showroom\2023-suzuki-swift-concept.webp" alt="Swift">
+                <div class="car-info">
+                    <h3>2023-suzuki-swift-concept</h3>
+                    <p>Model: 2026 | Automatic</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 2,500,000</span>
+                        <span class="price">PKR 2,250,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('2023-suzuki-swift-concept')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 2 -->
+            <div class="car-card" data-name="2023-toyota-corolla-cross-hybrid-xse" data-brand="KIA" data-price="4000000" data-year="2023" data-mileage="25,000 km" data-transmission="Automatic" data-fuel="Hybrid" data-engine="1.8L" data-image="c:\Users\HP\OneDrive\Desktop\showroom\2023-toyota-corolla-cross-hybrid-xse-195-64764b50353cb.avif" data-desc="High-performance hybrid crossover SUV with advanced safety features.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, '2023-toyota-corolla-cross-hybrid-xse')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #d35400;">20% OFF</div>
+                <img src="c:\Users\HP\OneDrive\Desktop\showroom\2023-toyota-corolla-cross-hybrid-xse-195-64764b50353cb.avif" alt="Corolla Cross">
+                <div class="car-info">
+                    <h3>2023-toyota-corolla-cross</h3>
+                    <p>Model: 2023</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 5,000,000</span>
+                        <span class="price">PKR 4,000,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('2023-toyota-corolla-cross-hybrid-xse')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 3 -->
+            <div class="car-card" data-name="2026-gr-yaris-seb-ogier" data-brand="Toyota" data-price="8500000" data-year="2026" data-mileage="5,000 km" data-transmission="Manual / AWD" data-fuel="Petrol" data-engine="1.6L Turbo" data-image="c:\Users\HP\OneDrive\Desktop\showroom\2026-GR-Yaris-Seb-Ogier-9x-02-1536x960.jpg" data-desc="Rally-bred powerhouse designed for extreme agility and supreme track performance.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, '2026-gr-yaris-seb-ogier')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #27ae60;">15% OFF</div>
+                <img src="c:\Users\HP\OneDrive\Desktop\showroom\2026-GR-Yaris-Seb-Ogier-9x-02-1536x960.jpg" alt="GR Yaris">
+                <div class="car-info">
+                    <h3>2026-GR-Yaris</h3>
+                    <p>Model: 2026</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 10,000,000</span>
+                        <span class="price">PKR 8,500,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('2026-gr-yaris-seb-ogier')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 4 -->
+            <div class="car-card" data-name="Corolla-7-group" data-brand="Suzuki" data-price="270000" data-year="1996" data-mileage="150,000 km" data-transmission="Manual" data-fuel="Petrol" data-engine="1.3L" data-image="c:\Users\HP\OneDrive\Desktop\showroom\Corolla-7-group.jpg" data-desc="Classic vintage sedan known for durable build quality and easy maintenance.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Corolla-7-group')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge">10% OFF</div>
+                <img src="c:\Users\HP\OneDrive\Desktop\showroom\Corolla-7-group.jpg" alt="Corolla 96">
+                <div class="car-info">
+                    <h3>Corolla-7-group</h3>
+                    <p>Model: 96</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 300,000</span>
+                        <span class="price">PKR 270,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Corolla-7-group')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 5 -->
+            <div class="car-card" data-name="Suzuki Alto" data-brand="Hyundai" data-price="2480000" data-year="2023" data-mileage="30,000 km" data-transmission="Automatic" data-fuel="Petrol" data-engine="660cc" data-image="c:\Users\HP\OneDrive\Desktop\showroom\download (1).jpg" data-desc="Compact city hatchback with exceptional fuel efficiency and easy parking.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Suzuki Alto')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #d35400;">20% OFF</div>
+                <img src="c:\Users\HP\OneDrive\Desktop\showroom\download (1).jpg" alt="Alto">
+                <div class="car-info">
+                    <h3>Suzuki Alto</h3>
+                    <p>Model: 2023</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 3,100,000</span>
+                        <span class="price">PKR 2,480,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Suzuki Alto')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 6 -->
+            <div class="car-card" data-name="Auto Rikshaw" data-brand="MG" data-price="2975000" data-year="2024" data-mileage="8,000 km" data-transmission="Manual" data-fuel="Petrol/CNG" data-engine="200cc" data-image="c:\Users\HP\OneDrive\Desktop\showroom\download (4).jpg" data-desc="Reliable commercial transport vehicle built for urban passenger commuting.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Auto Rikshaw')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #27ae60;">15% OFF</div>
+                <img src="c:\Users\HP\OneDrive\Desktop\showroom\download (4).jpg" alt="Rikshaw">
+                <div class="car-info">
+                    <h3>Auto Rikshaw</h3>
+                    <p>Model: 2024</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 3,500,000</span>
+                        <span class="price">PKR 2,975,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Auto Rikshaw')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 7 -->
+            <div class="car-card" data-name="Honda 125" data-brand="Honda" data-price="220500" data-year="2026" data-mileage="1,000 km" data-transmission="4-Speed Manual" data-fuel="Petrol" data-engine="125cc" data-image="c:\Users\HP\OneDrive\Desktop\showroom\download (5).jpg" data-desc="The iconic powerful commuter motorcycle with a distinct deep exhaust note.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Honda 125')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge">10% OFF</div>
+                <img src="c:\Users\HP\OneDrive\Desktop\showroom\download (5).jpg" alt="Honda 125">
+                <div class="car-info">
+                    <h3>Honda 125</h3>
+                    <p>Model: 2026</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 245,000</span>
+                        <span class="price">PKR 220,500</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Honda 125')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 8 -->
+            <div class="car-card" data-name="Gli Corolla" data-brand="Toyota" data-price="4400000" data-year="2024" data-mileage="40,000 km" data-transmission="Automatic" data-fuel="Petrol" data-engine="1.3L" data-image="c:\Users\HP\OneDrive\Desktop\showroom\download (6).jpg" data-desc="Pakistan's favorite reliable family sedan offering comfort and great resale value.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Gli Corolla')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #d35400;">20% OFF</div>
+                <img src="c:\Users\HP\OneDrive\Desktop\showroom\download (6).jpg" alt="Gli Corolla">
+                <div class="car-info">
+                    <h3>Gli Corolla</h3>
+                    <p>Model: 2024</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 5,500,000</span>
+                        <span class="price">PKR 4,400,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Gli Corolla')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 9 -->
+            <div class="car-card" data-name="Changan Alsvin" data-brand="Changan" data-price="3485000" data-year="2023" data-mileage="22,000 km" data-transmission="DCT Automatic" data-fuel="Petrol" data-engine="1.5L" data-image="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=600&q=80" data-desc="Modern subcompact sedan equipped with sunroof and premium leather seating.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Changan Alsvin')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #27ae60;">15% OFF</div>
+                <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=600&q=80" alt="Changan Alsvin">
+                <div class="car-info">
+                    <h3>Changan Alsvin</h3>
+                    <p>Model: 2023</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 4,100,000</span>
+                        <span class="price">PKR 3,485,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Changan Alsvin')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 10 -->
+            <div class="car-card" data-name="Honda Civic" data-brand="Honda" data-price="7650000" data-year="2025" data-mileage="10,000 km" data-transmission="CVT Automatic" data-fuel="Petrol" data-engine="1.5L Turbo" data-image="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=600&q=80" data-desc="Sporty luxury fastback sedan with futuristic interior and powerful turbo engine.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Honda Civic')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge">10% OFF</div>
+                <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=600&q=80" alt="Honda Civic">
+                <div class="car-info">
+                    <h3>Honda Civic</h3>
+                    <p>Model: 2025</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 8,500,000</span>
+                        <span class="price">PKR 7,650,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Honda Civic')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 11 -->
+            <div class="car-card" data-name="Toyota Yaris" data-brand="Toyota" data-price="3840000" data-year="2024" data-mileage="18,000 km" data-transmission="CVT Automatic" data-fuel="Petrol" data-engine="1.5L" data-image="https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=600&q=80" data-desc="Stylish sedan known for smooth ride quality and excellent fuel economy.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Toyota Yaris')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #d35400;">20% OFF</div>
+                <img src="https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=600&q=80" alt="Toyota Yaris">
+                <div class="car-info">
+                    <h3>Toyota Yaris</h3>
+                    <p>Model: 2024</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 4,800,000</span>
+                        <span class="price">PKR 3,840,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Toyota Yaris')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 12 -->
+            <div class="car-card" data-name="Audi A6" data-brand="Audi" data-price="21250000" data-year="2024" data-mileage="15,000 km" data-transmission="Automatic S-Tronic" data-fuel="Petrol" data-engine="2.0L Turbo" data-image="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80" data-desc="Executive luxury sedan featuring premium leather, virtual cockpit, and advanced tech.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Audi A6')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #27ae60;">15% OFF</div>
+                <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80" alt="Audi A6">
+                <div class="car-info">
+                    <h3>Audi A6</h3>
+                    <p>Model: 2024</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 25,000,000</span>
+                        <span class="price">PKR 21,250,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Audi A6')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 13 -->
+            <div class="car-card" data-name="Suzuki Alto VXL" data-brand="Suzuki" data-price="2700000" data-year="2025" data-mileage="5,000 km" data-transmission="AGS" data-fuel="Petrol" data-engine="660cc" data-image="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80" data-desc="Top variant AGS hatchback with power windows and dual airbags.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Suzuki Alto VXL')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge">10% OFF</div>
+                <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80" alt="Alto VXL">
+                <div class="car-info">
+                    <h3>Suzuki Alto VXL</h3>
+                    <p>Model: 2025</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 3,000,000</span>
+                        <span class="price">PKR 2,700,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Suzuki Alto VXL')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 14 -->
+            <div class="car-card" data-name="Chery Tiggo 8 Pro" data-brand="Chery" data-price="7600000" data-year="2024" data-mileage="14,000 km" data-transmission="DCT Automatic" data-fuel="Petrol" data-engine="1.6L Turbo" data-image="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80" data-desc="Spacious 7-seater luxury family SUV with panoramic sunroof.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Chery Tiggo 8 Pro')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #d35400;">20% OFF</div>
+                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80" alt="Chery Tiggo">
+                <div class="car-info">
+                    <h3>Chery Tiggo 8 Pro</h3>
+                    <p>Model: 2024</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 9,500,000</span>
+                        <span class="price">PKR 7,600,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Chery Tiggo 8 Pro')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 15 -->
+            <div class="car-card" data-name="Haval H6" data-brand="Haval" data-price="8670000" data-year="2024" data-mileage="11,000 km" data-transmission="DCT Automatic" data-fuel="Petrol" data-engine="1.5L Turbo" data-image="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80" data-desc="State-of-the-art intelligent SUV with autonomous driving assist features.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Haval H6')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #27ae60;">15% OFF</div>
+                <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80" alt="Haval H6">
+                <div class="car-info">
+                    <h3>Haval H6</h3>
+                    <p>Model: 2024</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 10,200,000</span>
+                        <span class="price">PKR 8,670,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Haval H6')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 16 -->
+            <div class="car-card" data-name="Prince Pearl" data-brand="Prince" data-price="1440000" data-year="2023" data-mileage="20,000 km" data-transmission="Manual" data-fuel="Petrol" data-engine="800cc" data-image="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=600&q=80" data-desc="Affordable mini hatchback packed with modern multimedia screen and AC.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Prince Pearl')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge">10% OFF</div>
+                <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=600&q=80" alt="Prince Pearl">
+                <div class="car-info">
+                    <h3>Prince Pearl</h3>
+                    <p>Model: 2023</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 1,600,000</span>
+                        <span class="price">PKR 1,440,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Prince Pearl')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 17 -->
+            <div class="car-card" data-name="DFSK Glory 580" data-brand="DFSK" data-price="6000000" data-year="2023" data-mileage="35,000 km" data-transmission="Automatic" data-fuel="Petrol" data-engine="1.5L Turbo" data-image="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=600&q=80" data-desc="Connected smart SUV featuring voice controls and spacious seating layout.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'DFSK Glory 580')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #d35400;">20% OFF</div>
+                <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=600&q=80" alt="DFSK Glory">
+                <div class="car-info">
+                    <h3>DFSK Glory 580 Pro</h3>
+                    <p>Model: 2023</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 7,500,000</span>
+                        <span class="price">PKR 6,000,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('DFSK Glory 580')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 18 -->
+            <div class="car-card" data-name="Hyundai Elantra" data-brand="Hyundai" data-price="6120000" data-year="2024" data-mileage="16,000 km" data-transmission="Automatic" data-fuel="Petrol" data-engine="2.0L" data-image="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=600&q=80" data-desc="Parametric dynamic design sedan with powerful 2.0L engine and luxurious ride.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Hyundai Elantra')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #27ae60;">15% OFF</div>
+                <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=600&q=80" alt="Hyundai Elantra">
+                <div class="car-info">
+                    <h3>Hyundai Elantra</h3>
+                    <p>Model: 2024</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 7,200,000</span>
+                        <span class="price">PKR 6,120,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Hyundai Elantra')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car 19 -->
+            <div class="car-card" data-name="Toyota Fortuner" data-brand="Toyota" data-price="16650000" data-year="2025" data-mileage="8,000 km" data-transmission="Automatic 4x4" data-fuel="Diesel" data-engine="2.8L" data-image="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=600&q=80" data-desc="The ultimate rugged luxury 4x4 off-road SUV with commanding road presence.">
+                <button class="wishlist-btn" onclick="toggleWishlist(this, 'Toyota Fortuner')"><i class="fa-regular fa-heart"></i></button>
+                <div class="discount-badge" style="background-color: #27ae60;">10% OFF</div>
+                <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=600&q=80" alt="Toyota Fortuner">
+                <div class="car-info">
+                    <h3>Toyota Fortuner</h3>
+                    <p>Model: 2025</p>
+                    <div class="price-box">
+                        <span class="old-price">PKR 18,500,000</span>
+                        <span class="price">PKR 16,650,000</span>
+                    </div>
+                    <div class="card-buttons">
+                        <button class="btn btn-secondary" onclick="openDetails(this)">View Details</button>
+                        <a href="#booking" class="btn" onclick="selectCar('Toyota Fortuner')">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Wishlist Container -->
+        <div class="wishlist-container" id="wishlistSection">
+            <h3 style="color: #2a5298;"><i class="fa-solid fa-heart" style="color:#e74c3c;"></i> My Favorite Wishlist Cars</h3>
+            <div class="wishlist-items" id="wishlistItems">
+                <p style="color: #777; font-size: 14px;">No cars added to wishlist yet. Click the heart icon on any car card!</p>
+            </div>
+        </div>
+
+        <!-- Extra Tools & Classic Features Section -->
+        <div class="extra-sections-grid" id="tools">
+            
+            <!-- Classic Feature 1: Car Comparison Tool -->
+            <div class="feature-box">
+                <h3><i class="fa-solid fa-scale-balanced"></i> Compare Two Cars</h3>
+                <div class="form-group">
+                    <label>Select Car 1:</label>
+                    <select id="compareCar1">
+                        <option value="Honda Civic">Honda Civic</option>
+                        <option value="Toyota Yaris">Toyota Yaris</option>
+                        <option value="Suzuki Alto VXL">Suzuki Alto VXL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Select Car 2:</label>
+                    <select id="compareCar2">
+                        <option value="Toyota Fortuner">Toyota Fortuner</option>
+                        <option value="Haval H6">Haval H6</option>
+                        <option value="Audi A6">Audi A6</option>
+                    </select>
+                </div>
+                <button class="btn" style="width: 100%;" onclick="compareCars()">Compare Specifications</button>
+                <div class="result-box" id="compareResult">Select cars to see side-by-side comparison.</div>
+            </div>
+
+            <!-- Classic Feature 2: Car Insurance Estimator -->
+            <div class="feature-box">
+                <h3><i class="fa-solid fa-shield-halved"></i> Car Insurance Estimator</h3>
+                <div class="form-group">
+                    <label>Car Value / Price (PKR):</label>
+                    <input type="number" id="insPrice" value="5000000">
+                </div>
+                <div class="form-group">
+                    <label>Coverage Plan:</label>
+                    <select id="insPlan">
+                        <option value="0.015">Standard Plan (1.5%)</option>
+                        <option value="0.022" selected>Comprehensive Plan (2.2%)</option>
+                        <option value="0.03">Full Premium Protection (3.0%)</option>
+                    </select>
+                </div>
+                <button class="btn" style="width: 100%;" onclick="calculateInsurance()">Calculate Annual Premium</button>
+                <div class="result-box" id="insResult">Estimated Insurance: PKR 0</div>
+            </div>
+
+            <!-- Classic Feature 3: Sell Your Car Form -->
+            <div class="feature-box">
+                <h3><i class="fa-solid fa-car-on"></i> Sell / Trade-in Your Car</h3>
+                <form onsubmit="handleSellCar(event)">
+                    <div class="form-group">
+                        <label>Car Make & Model:</label>
+                        <input type="text" id="sellModel" required placeholder="e.g. Toyota Corolla 2021">
+                    </div>
+                    <div class="form-group">
+                        <label>Expected Price (PKR):</label>
+                        <input type="number" id="sellPrice" required placeholder="Enter expected price">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; background: #e74c3c; color: white;">Request Valuation</button>
+                </form>
+            </div>
+
+            <!-- Classic Feature 4: Submit Review Form -->
+            <div class="feature-box">
+                <h3><i class="fa-solid fa-star"></i> Submit Showroom Review</h3>
+                <form onsubmit="handleReview(event)">
+                    <div class="form-group">
+                        <label>Your Name:</label>
+                        <input type="text" id="revName" required placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Rating:</label>
+                        <select id="revStars">
+                            <option value="⭐⭐⭐⭐⭐">5 Stars - Excellent</option>
+                            <option value="⭐⭐⭐⭐">4 Stars - Very Good</option>
+                            <option value="⭐⭐⭐">3 Stars - Good</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Feedback:</label>
+                        <textarea id="revText" rows="2" required placeholder="Write your experience..."></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Post Review</button>
+                </form>
+            </div>
+
+            <!-- Classic Feature 5: Showroom Location & Visiting Info -->
+            <div class="feature-box">
+                <h3><i class="fa-solid fa-location-dot"></i> Showroom Location & Hours</h3>
+                <p style="margin-bottom: 10px;"><strong>Address:</strong> Main GT Road, Haripur, Pakistan</p>
+                <p style="margin-bottom: 10px;"><strong>Timing:</strong> Monday - Saturday (9:00 AM - 8:00 PM)</p>
+                <p style="margin-bottom: 15px;"><strong>Sunday:</strong> By Appointment Only</p>
+                <a href="https://maps.google.com" target="_blank" class="btn btn-secondary" style="width: 100%; text-align: center;"><i class="fa-solid fa-map-location-dot"></i> Open in Google Maps</a>
+            </div>
+
+            <!-- Classic Feature 6: Share Showroom Link -->
+            <div class="feature-box">
+                <h3><i class="fa-solid fa-share-nodes"></i> Share Showroom</h3>
+                <p style="margin-bottom: 15px;">Share Malangi Car Showroom with your friends and family looking for verified vehicles.</p>
+                <button class="btn" style="width: 100%; background: #25d366; color: white;" onclick="shareOnWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Share on WhatsApp</button>
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 10px;" onclick="copyPageLink()"><i class="fa-solid fa-copy"></i> Copy Showroom Link</button>
+            </div>
+
+        </div>
+
+        <!-- Details Modal Popup -->
+        <div class="modal-overlay" id="carModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Car Details</h3>
+                    <button class="close-modal" onclick="closeDetails()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImg" src="" alt="Car">
+                    <p id="modalDesc" style="color: #666; margin-bottom: 15px;"></p>
+                    
+                    <div class="specs-grid">
+                        <div class="spec-item"><strong>Brand:</strong> <span id="modalBrand"></span></div>
+                        <div class="spec-item"><strong>Model Year:</strong> <span id="modalYear"></span></div>
+                        <div class="spec-item"><strong>Mileage:</strong> <span id="modalMileage"></span></div>
+                        <div class="spec-item"><strong>Transmission:</strong> <span id="modalTransmission"></span></div>
+                        <div class="spec-item"><strong>Fuel Type:</strong> <span id="modalFuel"></span></div>
+                        <div class="spec-item"><strong>Engine Capacity:</strong> <span id="modalEngine"></span></div>
+                    </div>
+
+                    <div class="price-box">
+                        <span id="modalOldPrice" class="old-price"></span>
+                        <span id="modalPrice" class="price"></span>
+                    </div>
+
+                    <div class="modal-actions">
+                        <a id="modalWhatsAppBtn" href="#" target="_blank" class="btn btn-whatsapp">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire via WhatsApp
+                        </a>
+                        <a href="#booking" class="btn" onclick="closeDetailsAndBook()">Book This Car</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Testimonials -->
+        <div class="testimonials" id="testimonials">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonial-grid" id="testimonialContainer">
+                <div class="testimonial-card">
+                    <p>"Bought my KIA Sportage from Malangi Car Showroom. The dealing was completely transparent and smooth!"</p>
+                    <h4>- Usman Ali ⭐⭐⭐⭐⭐</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Very reliable showroom. Got my Toyota Revo delivered on time with all genuine documents."</p>
+                    <h4>- Hamza Khan ⭐⭐⭐⭐⭐</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Best prices in town and very cooperative staff. Highly recommended to car buyers."</p>
+                    <h4>- Ahmed Raza ⭐⭐⭐⭐⭐</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQs Section -->
+        <div class="faq-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h4>How can I book a car?</h4>
+                <p>You can select your desired car, fill out the booking form, and submit it directly to our official WhatsApp.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Are all car documents verified?</h4>
+                <p>Yes, 100% of our vehicles come with verified paperwork and clear token taxes.</p>
+            </div>
+        </div>
+
+        <!-- Booking Section -->
+        <div class="booking-section" id="booking">
+            <h2 class="section-title">Online Car Booking Form</h2>
+            <form onsubmit="handleBooking(event)">
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" required placeholder="03XXXXXXXXX">
+                </div>
+                <div class="form-group">
+                    <label for="carSelect">Select Car:</label>
+                    <select id="carSelect">
+                        <option value="2023-suzuki-swift-concept">2023-suzuki-swift-concept</option>
+                        <option value="2023-toyota-corolla-cross-hybrid-xse">2023-toyota-corolla-cross-hybrid-xse</option>
+                        <option value="2026-gr-yaris-seb-ogier">2026-gr-yaris-seb-ogier</option>
+                        <option value="Corolla-7-group">Corolla-7-group</option>
+                        <option value="Suzuki Alto">Suzuki Alto</option>
+                        <option value="Auto Rikshaw">Auto Rikshaw</option>
+                        <option value="Honda 125">Honda 125</option>
+                        <option value="Gli Corolla">Gli Corolla</option>
+                        <option value="Changan Alsvin">Changan Alsvin</option>
+                        <option value="Honda Civic">Honda Civic</option>
+                        <option value="Toyota Yaris">Toyota Yaris</option>
+                        <option value="Audi A6">Audi A6</option>
+                        <option value="Suzuki Alto VXL">Suzuki Alto VXL</option>
+                        <option value="Chery Tiggo 8 Pro">Chery Tiggo 8 Pro</option>
+                        <option value="Haval H6">Haval H6</option>
+                        <option value="Prince Pearl">Prince Pearl</option>
+                        <option value="DFSK Glory 580">DFSK Glory 580</option>
+                        <option value="Hyundai Elantra">Hyundai Elantra</option>
+                        <option value="Toyota Fortuner">Toyota Fortuner</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Submit Booking Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/923170319665" class="whatsapp-float" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Contact Footer -->
+    <footer id="contact">
+        <h3>Malangi Car Showroom</h3>
+        <p>Phone: <a href="tel:03170319665">03170319665</a></p>
+        <p>Email: <a href="mailto:malangicars@gmail.com">malangicars@gmail.com</a></p>
+        <p style="margin-top: 15px; font-size: 14px; color: #aaa;">&copy; 2026 All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Populate Top Ticker Automatically from Car Cards
+        window.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.car-card');
+            const tickerTrack = document.getElementById('tickerTrack');
+            
+            let tickerHTML = '';
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                const img = card.getAttribute('data-image');
+                const price = card.querySelector('.price').innerText;
+
+                tickerHTML += `
+                    <div class="ticker-item">
+                        <img src="${img}" alt="${name}">
+                        <div class="ticker-info">
+                            <span class="t-name">${name}</span>
+                            <span class="t-price">${price}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Duplicate items to ensure seamless infinite looping animation
+            tickerTrack.innerHTML = tickerHTML + tickerHTML;
+        });
+
+        // Theme Toggle Logic
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Stats Animated Counter
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / 50;
+                if(count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 30);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        });
+
+        // Wishlist Management
+        let wishlist = [];
+        function toggleWishlist(btn, carName) {
+            const icon = btn.querySelector('i');
+            if(wishlist.includes(carName)) {
+                wishlist = wishlist.filter(item => item !== carName);
+                icon.classList.remove('fa-solid');
+                icon.classList.add('fa-regular');
+                btn.style.background = "rgba(255,255,255,0.8)";
+            } else {
+                wishlist.push(carName);
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid');
+                btn.style.background = "#fff";
+            }
+            updateWishlistUI();
+        }
+
+        function updateWishlistUI() {
+            const container = document.getElementById('wishlistItems');
+            if(wishlist.length === 0) {
+                container.innerHTML = '<p style="color: #777; font-size: 14px;">No cars added to wishlist yet. Click the heart icon on any car card!</p>';
+                return;
+            }
+            container.innerHTML = '';
+            wishlist.forEach(car => {
+                container.innerHTML += `<div class="wishlist-chip"><i class="fa-solid fa-car"></i> ${car} <button onclick="removeFromWishlist('${car}')">&times;</button></div>`;
+            });
+        }
+
+        function removeFromWishlist(carName) {
+            wishlist = wishlist.filter(item => item !== carName);
+            document.querySelectorAll('.car-card').forEach(card => {
+                if(card.getAttribute('data-name') === carName) {
+                    const btn = card.querySelector('.wishlist-btn i');
+                    btn.classList.remove('fa-solid');
+                    btn.classList.add('fa-regular');
+                }
+            });
+            updateWishlistUI();
+        }
+
+        // Classic Feature 1: Car Comparison Tool
+        function compareCars() {
+            let c1 = document.getElementById('compareCar1').value;
+            let c2 = document.getElementById('compareCar2').value;
+            document.getElementById('compareResult').innerHTML = `Comparing <strong>${c1}</strong> vs <strong>${c2}</strong>: Both models are verified with excellent market value and top specifications available at Malangi Showroom!`;
+        }
+
+        // Classic Feature 2: Car Insurance Estimator
+        function calculateInsurance() {
+            let price = parseFloat(document.getElementById('insPrice').value) || 0;
+            let rate = parseFloat(document.getElementById('insPlan').value) || 0.022;
+            let annualPremium = price * rate;
+            document.getElementById('insResult').innerText = `Estimated Annual Premium: PKR ${Math.round(annualPremium).toLocaleString()}`;
+        }
+
+        // Classic Feature 3: Sell Your Car Form
+        function handleSellCar(e) {
+            e.preventDefault();
+            let model = document.getElementById('sellModel').value;
+            let price = document.getElementById('sellPrice').value;
+            alert(`Thank you! Your request to sell/trade-in your ${model} for PKR ${price} has been submitted. Our team will contact you.`);
+            e.target.reset();
+        }
+
+        // Classic Feature 4: Submit Review Form
+        function handleReview(e) {
+            e.preventDefault();
+            let name = document.getElementById('revName').value;
+            let stars = document.getElementById('revStars').value;
+            let text = document.getElementById('revText').value;
+            
+            const container = document.getElementById('testimonialContainer');
+            const newCard = document.createElement('div');
+            newCard.className = 'testimonial-card';
+            newCard.innerHTML = `<p>"${text}"</p><h4>- ${name} ${stars}</h4>`;
+            container.prepend(newCard);
+            alert("Thank you for your valuable review!");
+            e.target.reset();
+        }
+
+        // Classic Feature 6: Share Showroom
+        function shareOnWhatsApp() {
+            let text = encodeURIComponent("Check out Malangi Car Showroom for the best new and used cars with guaranteed discounts!");
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        }
+
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert("Showroom link copied to clipboard!");
+        }
+
+        // Search & Filter Logic
+        function filterCars() {
+            let searchInput = document.getElementById('carSearch').value.toLowerCase();
+            let brandVal = document.getElementById('brandFilter').value;
+            let priceVal = document.getElementById('priceFilter').value;
+            let yearVal = document.getElementById('yearFilter').value;
+            
+            let cards = document.getElementsByClassName('car-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let card = cards[i];
+                let carName = card.getAttribute('data-name').toLowerCase();
+                let carBrand = card.getAttribute('data-brand');
+                let carPrice = parseFloat(card.getAttribute('data-price'));
+                let carYear = card.getAttribute('data-year');
+
+                let matchesSearch = carName.includes(searchInput) || carBrand.toLowerCase().includes(searchInput);
+                let matchesBrand = (brandVal === "" || carBrand === brandVal);
+                let matchesYear = (yearVal === "" || carYear === yearVal);
+                
+                let matchesPrice = true;
+                if (priceVal !== "") {
+                    let parts = priceVal.split('-');
+                    let minPrice = parseFloat(parts[0]);
+                    let maxPrice = parseFloat(parts[1]);
+                    matchesPrice = (carPrice >= minPrice && carPrice <= maxPrice);
+                }
+
+                if (matchesSearch && matchesBrand && matchesYear && matchesPrice) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+
+        // Modal Logic
+        let selectedCarNameForBooking = "";
+
+        function openDetails(button) {
+            const card = button.closest('.car-card');
+            
+            const name = card.getAttribute('data-name');
+            const brand = card.getAttribute('data-brand');
+            const year = card.getAttribute('data-year');
+            const image = card.getAttribute('data-image');
+            const mileage = card.getAttribute('data-mileage');
+            const transmission = card.getAttribute('data-transmission');
+            const fuel = card.getAttribute('data-fuel');
+            const engine = card.getAttribute('data-engine');
+            const desc = card.getAttribute('data-desc');
+            
+            const oldPriceHTML = card.querySelector('.old-price').innerHTML;
+            const finalPriceHTML = card.querySelector('.price').innerHTML;
+
+            selectedCarNameForBooking = name;
+
+            document.getElementById('modalTitle').innerText = name;
+            document.getElementById('modalImg').src = image;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalBrand').innerText = brand;
+            document.getElementById('modalYear').innerText = year;
+            document.getElementById('modalMileage').innerText = mileage;
+            document.getElementById('modalTransmission').innerText = transmission;
+            document.getElementById('modalFuel').innerText = fuel;
+            document.getElementById('modalEngine').innerText = engine;
+            
+            document.getElementById('modalOldPrice').innerHTML = oldPriceHTML;
+            document.getElementById('modalPrice').innerHTML = finalPriceHTML;
+
+            const whatsappNumber = "923170319665";
+            const waMessage = encodeURIComponent(`Hello, I want to inquire about the car: ${name} priced at ${finalPriceHTML}.`);
+            document.getElementById('modalWhatsAppBtn').href = `https://wa.me/${whatsappNumber}?text=${waMessage}`;
+
+            document.getElementById('carModal').style.display = 'flex';
+        }
+
+        function closeDetails() {
+            document.getElementById('carModal').style.display = 'none';
+        }
+
+        function closeDetailsAndBook() {
+            closeDetails();
+            selectCar(selectedCarNameForBooking);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('carModal');
+            if (event.target === modal) {
+                closeDetails();
+            }
+        }
+
+        function selectCar(carName) {
+            const selectTag = document.getElementById('carSelect');
+            for (let i = 0; i < selectTag.options.length; i++) {
+                if (selectTag.options[i].value === carName) {
+                    selectTag.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        function handleBooking(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const car = document.getElementById('carSelect').value;
+
+            const whatsappNumber = "923170319665"; 
+            const message = `Hello Malangi Car Showroom,%0A%0ANayi Booking Request Aai Hai:%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Selected Car:* ${car}`;
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+            
+            window.open(whatsappURL, '_blank');
+            event.target.reset();
+        }
+    </script>
+
+</body>
+</html>

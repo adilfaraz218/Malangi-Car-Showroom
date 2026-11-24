@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faraz Car Showroom - Best Cars, Best Prices</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background-color: #ffcc00;
+            color: #1e3c72;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #e6b800;
+        }
+
+        /* Cars Section */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #1e3c72;
+        }
+
+        /* Search Bar */
+        .search-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-container input {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(30, 60, 114, 0.2);
+        }
+
+        /* Image Slider Styling inside Div */
+        .car-slider {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .car-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .car-slider img.active {
+            display: block;
+        }
+
+        /* Slider Controls Buttons */
+        .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: 0.3s;
+            z-index: 10;
+        }
+
+        .slide-btn:hover {
+            background: #ffcc00;
+            color: #000;
+        }
+
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+        .car-info {
+            padding: 20px;
+        }
+
+        .car-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #2a5298;
+        }
+
+        .car-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: #fff;
+            padding: 60px 20px;
+            margin-top: 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #ffcc00;
+            border-radius: 5px;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-card h4 {
+            color: #1e3c72;
+            font-size: 16px;
+        }
+
+        /* FAQs Section */
+        .faq-section {
+            max-width: 900px;
+            margin: 60px auto 0;
+            padding: 0 20px;
+        }
+
+        .faq-item {
+            background: #fff;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .faq-item h4 {
+            color: #2a5298;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .faq-item p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* Booking Form Section */
+        .booking-section {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin-top: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Contact Footer */
+        footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Faraz Car Showroom 🚗</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#cars">Cars</a>
+            <a href="#testimonials">Reviews</a>
+            <a href="#booking">Book Now</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Book Your Dream Car Online</h2>
+        <p>Contact us today for the best new and used vehicles</p>
+        <a href="#cars" class="btn">View Cars</a>
+    </section>
+
+    <!-- Cars Section -->
+    <div class="container" id="cars">
+        <h2 class="section-title">Available Cars Collection</h2>
+        
+        <!-- Search Filter -->
+        <div class="search-container">
+            <input type="text" id="carSearch" placeholder="Search for a car (e.g. Revo, Sportage, Civic)..." onkeyup="filterCars()">
+        </div>
+
+        <div class="cars-grid" id="carsGrid">
+            
+            <!-- Car 1: Toyota Revo -->
+            <div class="car-card" data-name="Toyota Revo">
+                <div class="car-slider" id="slider-revo">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80" class="active" alt="Revo Front">
+                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=600&q=80" alt="Revo Back">
+                    <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80" alt="Revo Left">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" alt="Revo Right">
+                    
+                    <button class="slide-btn prev-btn" onclick="changeSlide('slider-revo', -1)">&#10094;</button>
+                    <button class="slide-btn next-btn" onclick="changeSlide('slider-revo', 1)">&#10095;</button>
+                </div>
+                <div class="car-info">
+                    <h3>Toyota Revo</h3>
+                    <p>Model: 2024 | Automatic | Excellent Condition</p>
+                    <div class="price">PKR 1,45,00,000</div>
+                    <a href="#booking" class="btn" onclick="selectCar('Toyota Revo')">Book Now</a>
+                </div>
+            </div>
+
+            <!-- Car 2: KIA Sportage -->
+            <div class="car-card" data-name="KIA Sportage">
+                <div class="car-slider" id="slider-sportage">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" class="active" alt="Sportage Front">
+                    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=600&q=80" alt="Sportage Back">
+                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=600&q=80" alt="Sportage Left">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80" alt="Sportage Right">
+                    
+                    <button class="slide-btn prev-btn" onclick="changeSlide('slider-sportage', -1)">&#10094;</button>
+                    <button class="slide-btn next-btn" onclick="changeSlide('slider-sportage', 1)">&#10095;</button>
+                </div>
+                <div class="car-info">
+                    <h3>KIA Sportage</h3>
+                    <p>Model: 2024 | Sunroof | A-One Condition</p>
+                    <div class="price">PKR 88,00,000</div>
+                    <a href="#booking" class="btn" onclick="selectCar('KIA Sportage')">Book Now</a>
+                </div>
+            </div>
+
+            <!-- Car 3: Toyota Corolla Altis -->
+            <div class="car-card" data-name="Toyota Corolla Altis">
+                <div class="car-slider" id="slider-corolla">
+                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=600&q=80" class="active" alt="Corolla Front">
+                    <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80" alt="Corolla Back">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" alt="Corolla Left">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80" alt="Corolla Right">
+                    
+                    <button class="slide-btn prev-btn" onclick="changeSlide('slider-corolla', -1)">&#10094;</button>
+                    <button class="slide-btn next-btn" onclick="changeSlide('slider-corolla', 1)">&#10095;</button>
+                </div>
+                <div class="car-info">
+                    <h3>Toyota Corolla Altis</h3>
+                    <p>Model: 2023 | 1.6 Special Edition | Pristine</p>
+                    <div class="price">PKR 75,00,000</div>
+                    <a href="#booking" class="btn" onclick="selectCar('Toyota Corolla Altis')">Book Now</a>
+                </div>
+            </div>
+
+            <!-- Car 4: Suzuki Swift -->
+            <div class="car-card" data-name="Suzuki Swift">
+                <div class="car-slider" id="slider-swift">
+                    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=600&q=80" class="active" alt="Swift Front">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" alt="Swift Back">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80" alt="Swift Left">
+                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=600&q=80" alt="Swift Right">
+                    
+                    <button class="slide-btn prev-btn" onclick="changeSlide('slider-swift', -1)">&#10094;</button>
+                    <button class="slide-btn next-btn" onclick="changeSlide('slider-swift', 1)">&#10095;</button>
+                </div>
+                <div class="car-info">
+                    <h3>Suzuki Swift</h3>
+                    <p>Model: 2024 | GLX CVT | Fuel Efficient</p>
+                    <div class="price">PKR 47,00,000</div>
+                    <a href="#booking" class="btn" onclick="selectCar('Suzuki Swift')">Book Now</a>
+                </div>
+            </div>
+
+            <!-- Car 5: Hyundai Tucson -->
+            <div class="car-card" data-name="Hyundai Tucson">
+                <div class="car-slider" id="slider-tucson">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" class="active" alt="Tucson Front">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80" alt="Tucson Back">
+                    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=600&q=80" alt="Tucson Left">
+                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=600&q=80" alt="Tucson Right">
+                    
+                    <button class="slide-btn prev-btn" onclick="changeSlide('slider-tucson', -1)">&#10094;</button>
+                    <button class="slide-btn next-btn" onclick="changeSlide('slider-tucson', 1)">&#10095;</button>
+                </div>
+                <div class="car-info">
+                    <h3>Hyundai Tucson</h3>
+                    <p>Model: 2023 | Ultimate AWD | Luxury SUV</p>
+                    <div class="price">PKR 85,00,000</div>
+                    <a href="#booking" class="btn" onclick="selectCar('Hyundai Tucson')">Book Now</a>
+                </div>
+            </div>
+
+            <!-- Car 6: MG HS -->
+            <div class="car-card" data-name="MG HS">
+                <div class="car-slider" id="slider-mghs">
+                    <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=600&q=80" class="active" alt="MG Front">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80" alt="MG Back">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80" alt="MG Left">
+                    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=600&q=80" alt="MG Right">
+                    
+                    <button class="slide-btn prev-btn" onclick="changeSlide('slider-mghs', -1)">&#10094;</button>
+                    <button class="slide-btn next-btn" onclick="changeSlide('slider-mghs', 1)">&#10095;</button>
+                </div>
+                <div class="car-info">
+                    <h3>MG HS</h3>
+                    <p>Model: 2024 | Essence Turbo | Full Option</p>
+                    <div class="price">PKR 89,00,000</div>
+                    <a href="#booking" class="btn" onclick="selectCar('MG HS')">Book Now</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Customer Testimonials -->
+        <div class="testimonials" id="testimonials">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"Bought my KIA Sportage from Faraz Car Showroom. The dealing was completely transparent and smooth!"</p>
+                    <h4>- Usman Ali</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Very reliable showroom. Got my Toyota Revo delivered on time with all genuine documents."</p>
+                    <h4>- Hamza Khan</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Best prices in town and very cooperative staff. Highly recommended to car buyers."</p>
+                    <h4>- Ahmed Raza</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQs Section -->
+        <div class="faq-section">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h4>How can I book a car?</h4>
+                <p>You can simply select your desired car from our collection, fill out the booking form, and submit it. It will directly send your booking details to our official WhatsApp.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Are all car documents verified?</h4>
+                <p>Yes, 100% of our vehicles come with verified paperwork, clear token taxes, and guaranteed transfer processes.</p>
+            </div>
+        </div>
+
+        <!-- Booking Section -->
+        <div class="booking-section" id="booking">
+            <h2 class="section-title">Online Car Booking Form</h2>
+            <form onsubmit="handleBooking(event)">
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" required placeholder="03XXXXXXXXX">
+                </div>
+                <div class="form-group">
+                    <label for="carSelect">Select Car:</label>
+                    <select id="carSelect">
+                        <option value="Toyota Revo">Toyota Revo</option>
+                        <option value="KIA Sportage">KIA Sportage</option>
+                        <option value="Toyota Corolla Altis">Toyota Corolla Altis</option>
+                        <option value="Suzuki Swift">Suzuki Swift</option>
+                        <option value="Hyundai Tucson">Hyundai Tucson</option>
+                        <option value="MG HS">MG HS</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Submit Booking Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/923170319665?text=Hello,%20I%20want%20to%20inquire%20about%20a%20car." class="whatsapp-float" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Contact Footer -->
+    <footer id="contact">
+        <h3>Faraz Car Showroom</h3>
+        <p>Phone: <a href="tel:03170319665">03170319665</a></p>
+        <p>Email: <a href="mailto:adilfarazofficial020@gmail.com">adilfarazofficial020@gmail.com</a></p>
+        <p style="margin-top: 15px; font-size: 14px; color: #aaa;">&copy; 2026 All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Search Filter Script
+        function filterCars() {
+            let input = document.getElementById('carSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('car-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let carName = cards[i].getAttribute('data-name').toLowerCase();
+                if (carName.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // Image Slider Functionality for Each Car Div
+        function changeSlide(sliderId, direction) {
+            const slider = document.getElementById(sliderId);
+            const images = slider.querySelectorAll('img');
+            let currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+            
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + direction + images.length) % images.length;
+            images[currentIndex].classList.add('active');
+        }
+
+        function selectCar(carName) {
+            const selectTag = document.getElementById('carSelect');
+            for (let i = 0; i < selectTag.options.length; i++) {
+                if (selectTag.options[i].value === carName) {
+                    selectTag.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        // WhatsApp Direct Booking Integration
+        function handleBooking(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const car = document.getElementById('carSelect').value;
+
+            const whatsappNumber = "923170319665"; 
+            const message = `Hello Faraz Car Showroom,%0A%0ANew Booking Request Received:%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Selected Car:* ${car}`;
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+            
+            window.open(whatsappURL, '_blank');
+            event.target.reset();
+        }
+    </script>
+
+</body>
+</html>

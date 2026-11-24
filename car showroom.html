@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Car Showroom | Elite Motors</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for WhatsApp Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Header Section */
+        header {
+            background: rgba(18, 18, 18, 0.95);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e50914;
+            letter-spacing: 1px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #e50914;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #ccc;
+            max-width: 600px;
+        }
+
+        .btn {
+            background-color: #e50914;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #b20710;
+        }
+
+        /* Showroom / Car Collection Section */
+        .showroom {
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            font-weight: 700;
+            border-bottom: 2px solid #e50914;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .title-container {
+            text-align: center;
+        }
+
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .car-card {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .car-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .car-info {
+            padding: 20px;
+        }
+
+        .car-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .car-info p {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 20px;
+            color: #e50914;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #181818;
+            padding: 80px 50px;
+            text-align: center;
+        }
+
+        .contact form {
+            max-width: 600px;
+            margin: 30px auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact input, .contact textarea {
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background: #2a2a2a;
+            color: white;
+            font-size: 16px;
+        }
+
+        .contact textarea {
+            resize: none;
+            height: 150px;
+        }
+
+        /* Floating WhatsApp Button Style */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #0d0d0d;
+            color: #777;
+            font-size: 14px;
+            border-top: 1px solid #222;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .showroom {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">ELITE MOTORS</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#showroom">Collection</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Find Your Dream Car</h1>
+        <p>Explore our exclusive collection of premium and luxury vehicles. Visit us today.</p>
+        <a href="#showroom" class="btn">View Cars</a>
+    </section>
+
+    <!-- Showroom Collection Section -->
+    <section id="showroom" class="showroom">
+        <div class="title-container">
+            <h2 class="section-title">New Collection</h2>
+        </div>
+        <div class="car-grid">
+            <!-- Car 1 -->
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=600&q=80" alt="BMW" class="car-img">
+                <div class="car-info">
+                    <h3>BMW M4 Competition</h3>
+                    <p>High performance, sporty look, and an ultimate driving experience.</p>
+                    <div class="price">$75,000</div>
+                    <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Book Now</a>
+                </div>
+            </div>
+
+            <!-- Car 2 -->
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80" alt="Audi" class="car-img">
+                <div class="car-info">
+                    <h3>Audi RS7 Sportback</h3>
+                    <p>A stunning blend of luxury, elegance, and raw power.</p>
+                    <div class="price">$85,000</div>
+                    <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Book Now</a>
+                </div>
+            </div>
+
+            <!-- Car 3 -->
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=600&q=80" alt="Porsche" class="car-img">
+                <div class="car-info">
+                    <h3>Porsche 911 Turbo</h3>
+                    <p>Iconic classic design packed with cutting-edge super sports technology.</p>
+                    <div class="price">$120,000</div>
+                    <a href="#contact" class="btn" style="padding: 8px 20px; font-size: 14px;">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Get in Touch</h2>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Write your message or car inquiry..." required></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/YOUR_PHONE_NUMBER?text=Hello,%20I%20am%20interested%20in%20your%20car%20showroom." class="whatsapp-float" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2026 Elite Motors Showroom. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
